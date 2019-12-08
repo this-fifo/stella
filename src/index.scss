@@ -1,1 +1,68 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono&display=swap');
+
+* {
+  font-family: 'Fira Mono', monospace;
+}
+
+/*
+  Dark Mode Theme Settings using mix-blend-mode: difference
+  kudos to https://dev.wgao19.cc/sun-moon-blending-mode/ 🌚🌝
+*/
+.isolate {
+  isolation: isolate;
+}
+.expand {
+  transform: scale(100);
+  background: white;
+}
+#dark-mode-blender {
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  border-radius: 50%;
+  right: calc(50% - 50rem);
+  bottom: 1rem;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  mix-blend-mode: difference;
+}
+
+/*
+  Custom Card Styles inspired by a Github Octoverse Page
+*/
+.custom-card,
+.custom-borders {
+  border: 1px solid #212529;
+  border-radius: 2xp;
+  -webkit-box-shadow: 5px 5px 0 0 #212529;
+  box-shadow: 5px 5px 0 0 #212529;
+}
+
+/*
+  Override React Bootstrap Pagination Styles
+*/
+.pagination > li > .page-link {
+  background-color: white;
+  color: black;
+}
+
+.pagination > li > .page-link:focus,
+.pagination > li > .page-link:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+  color: black;
+  background-color: #eee;
+  border-color: #ddd;
+}
+
+.pagination > .active > .page-link {
+  color: white;
+  background-color: black;
+  border-color: #ddd;
+}
+
+.pagination > .active > .page-link:hover {
+  background-color: white;
+  border-color: black;
+}
