@@ -1,9 +1,17 @@
 import linkParser from 'parse-link-header';
 
-export const API_URL = 'https://api.github.com/users/this-fifo/starred?per_page=15';
+export const API_URL_ENDPOINT = 'https://api.github.com/users';
 
-export const getStarredRepos = async (page = 1, url = API_URL) => {
-  const response = await fetch(`${url}&page=${page}`);
+export const getStarredRepos = async (page = 1) => {
+  const githubUsernameRegex = /^\/[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+  if (!window.location.pathname.match(githubUsernameRegex)) {
+    throw new Error('Invalid username');
+  }
+
+  const user = window.location.pathname.substr(1);
+  const url = `${API_URL_ENDPOINT}/${user}/starred?per_page=15&page=${page}`;
+  const response = await fetch(url);
+
   if (!response.ok) {
     throw new Error('Something went wrong');
   }
@@ -11,5 +19,5 @@ export const getStarredRepos = async (page = 1, url = API_URL) => {
   const repos = await response.json();
   const headers = linkParser(response.headers.get('link'));
 
-  return { ...headers, repos };
+  return { ...headers, repos, user };
 };

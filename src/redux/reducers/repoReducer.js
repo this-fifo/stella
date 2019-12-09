@@ -6,6 +6,7 @@ const initialState = {
   next: {},
   last: {},
   error: false,
+  user: '',
 };
 
 export default function reposReducer(state = initialState, { type, response }) {
