@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
+import Typed from 'typed.js';
 
-const LoaderCard = ({ user }) => {
-  const message =
-    user === ''
-      ? `Loading starred repos ... ( •ॢ◡-ॢ)-♡ ☆.。.:*・°☆.。.:*・°☆`
-      : `Seems like ${user} haven't starred any repos yet (╥﹏╥)`;
+const LoaderCard = ({ user, loading }) => {
+  const message = loading
+    ? ['Loading starred repos ...', '( •ॢ◡-ॢ)-♡ ☆.。.:*・°☆.。.:*・°☆']
+    : [
+        'Oh, no!',
+        `Seems like ${user} haven't starred any repos yet ...`,
+        'Maybe try another user? (╥﹏╥)',
+      ];
+
+  const options = {
+    strings: message,
+    typeSpeed: 20,
+    backSpeed: 15,
+  };
+
+  const ref = createRef();
+
+  useEffect(() => {
+    const typed = new Typed(ref.current, options);
+    return () => typed.destroy();
+  }, [ref, options]);
 
   return (
     <>
-      <h5>{message}</h5>
+      <h5 ref={ref}> </h5>
       <ContentLoader
         height={507}
         width={900}
@@ -49,6 +66,7 @@ const LoaderCard = ({ user }) => {
 
 LoaderCard.propTypes = {
   user: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default LoaderCard;

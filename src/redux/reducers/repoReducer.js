@@ -1,30 +1,33 @@
 import types from '../actions/actionTypes';
 
-const initialState = {
-  repos: [],
+const pagination = {
+  first: {},
   prev: {},
   next: {},
   last: {},
-  error: false,
-  user: '',
 };
 
-export default function reposReducer(state = initialState, { type, response }) {
+const user = {
+  id: '',
+  repos: [],
+};
+
+const initialState = {
+  user,
+  pagination,
+  error: false,
+  loading: true,
+};
+
+export default function reposReducer(state = initialState, { type, response, payload }) {
   switch (type) {
+    case types.LOAD_REPOS_STARTED:
+      if (state.user.id === payload.user.id) return state;
+      return { user, pagination, error: false, loading: true };
     case types.LOAD_REPOS_SUCCESS:
-      if (response.last === undefined) {
-        response.last = state.last;
-        response.next = state.last;
-      }
-      if (response.prev === undefined) {
-        response.prev = { page: 0 };
-      }
-      response.last.page = parseInt(response.last.page, 10);
-      response.next.page = parseInt(response.next.page, 10);
-      response.prev.page = parseInt(response.prev.page, 10);
-      return { ...initialState, ...response };
+      return response;
     case types.LOAD_REPOS_FAILED:
-      return { ...initialState, error: true };
+      return { user, pagination, error: true, loading: false };
     default:
       return state;
   }

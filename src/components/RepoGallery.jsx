@@ -7,34 +7,34 @@ import { loadRepos } from '../redux/actions/repoActions';
 import LoaderCard from './LoaderCard';
 import ErrorCard from './ErrorCard';
 
-const RepoGallery = ({ repos, prev, next, last, load, error, user }) => {
+const RepoGallery = ({ user, pagination, load, error, loading, history }) => {
+  const { id, repos } = user;
+  const { prev, next, last } = pagination;
+  const current = parseInt(prev.page || 0, 10) + 1;
+
   useEffect(() => {
-    if (repos.length === 0 && !error) {
-      load(1);
-    }
-  }, [repos.length, load, error]);
+    load(history.location.pathname.substr(1));
+  }, [load, history.location.pathname]);
 
   const content =
     repos.length === 0 ? (
-      <LoaderCard user={user} />
+      <LoaderCard user={id} loading={loading} />
     ) : (
       repos.map(repo => <RepoCard key={repo.id} repo={repo} />)
     );
-
-  const currentPage = prev.page === last.page - 1 ? last.page : next.page - 1;
 
   if (error) return <ErrorCard />;
 
   return (
     <Container className="mt-5">
       <CardDeck>{content}</CardDeck>
-      {next.page >= 2 ? (
+      {next.page ? (
         <Pagination className="mt-5 d-flex justify-content-center">
-          <Pagination.First onClick={() => load(1)} disabled={prev.page === 0} />
-          <Pagination.Prev onClick={() => load(prev.page)} disabled={prev.page === 0} />
-          <Pagination.Item active>{currentPage}</Pagination.Item>
-          <Pagination.Next onClick={() => load(next.page)} disabled={next.page === last.page} />
-          <Pagination.Last onClick={() => load(last.page)} disabled={next.page === last.page} />
+          <Pagination.First onClick={() => load(id, 1)} disabled={current === 1} />
+          <Pagination.Prev onClick={() => load(id, prev.page)} disabled={!prev.page} />
+          <Pagination.Item active>{current}</Pagination.Item>
+          <Pagination.Next onClick={() => load(id, next.page)} disabled={!next.page} />
+          <Pagination.Last onClick={() => load(id, last.page)} disabled={!last.page} />
         </Pagination>
       ) : (
         <></>
@@ -44,20 +44,33 @@ const RepoGallery = ({ repos, prev, next, last, load, error, user }) => {
 };
 
 const paginatorInstance = {
-  page: PropTypes.number,
+  page: PropTypes.string,
   per_page: PropTypes.string,
   rel: PropTypes.string,
   url: PropTypes.string,
 };
 
-RepoGallery.propTypes = {
+const historyPropType = PropTypes.shape({
+  location: PropTypes.shape({ pathname: PropTypes.string }),
+});
+
+const userPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
   repos: PropTypes.arrayOf(PropTypes.object).isRequired,
+});
+
+RepoGallery.propTypes = {
+  user: userPropType.isRequired,
+  pagination: PropTypes.shape({
+    first: PropTypes.shape(paginatorInstance).isRequired,
+    prev: PropTypes.shape(paginatorInstance).isRequired,
+    next: PropTypes.shape(paginatorInstance).isRequired,
+    last: PropTypes.shape(paginatorInstance).isRequired,
+  }).isRequired,
   load: PropTypes.func.isRequired,
-  prev: PropTypes.shape(paginatorInstance).isRequired,
-  next: PropTypes.shape(paginatorInstance).isRequired,
-  last: PropTypes.shape(paginatorInstance).isRequired,
   error: PropTypes.bool.isRequired,
-  user: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  history: historyPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -65,7 +78,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  load: page => dispatch(loadRepos(page)),
+  load: (id, page = 1) => dispatch(loadRepos(id, page)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RepoGallery);
