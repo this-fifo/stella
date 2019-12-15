@@ -1,20 +1,20 @@
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import toggle from '../toggle.svg';
-import starCoin from '../star_coin.png';
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import toggle from '../toggle.svg'
+import starCoin from '../star_coin.png'
 
 const Header = ({ darkModeBlenderRef }) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('')
 
   const handleClick = () => {
-    darkModeBlenderRef.current.classList.toggle('expand');
-  };
+    darkModeBlenderRef.current.classList.toggle('expand')
+  }
 
   const handleChange = input => {
-    setSearchValue(input.target.value);
-  };
+    setSearchValue(input.target.value)
+  }
 
   return (
     <Navbar bg="white" variant="light" position="top">
@@ -41,11 +41,11 @@ const Header = ({ darkModeBlenderRef }) => {
         </Button>
       </Nav.Item>
     </Navbar>
-  );
-};
+  )
+}
 
 Header.propTypes = {
   darkModeBlenderRef: PropTypes.objectOf(PropTypes.instanceOf(Element)).isRequired,
-};
+}
 
-export default Header;
+export default Header

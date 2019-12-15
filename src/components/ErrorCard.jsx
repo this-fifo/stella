@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Card } from 'react-bootstrap';
+import React from 'react'
+import { Container, Card } from 'react-bootstrap'
 
 const ErrorCard = () => {
   return (
@@ -22,7 +22,7 @@ const ErrorCard = () => {
         </Card.Body>
       </Card>
     </Container>
-  );
-};
+  )
+}
 
-export default ErrorCard;
+export default ErrorCard

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { Container, Form, Button } from 'react-bootstrap'
 
 const LandingPage = ({ history }) => {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState('')
   const handleChange = input => {
-    setUserId(input.target.value);
-  };
+    setUserId(input.target.value)
+  }
 
   const handleClick = event => {
-    event.preventDefault();
-    history.push(`/${userId}`);
-  };
+    event.preventDefault()
+    history.push(`/${userId}`)
+  }
 
   return (
     <Container className="mt-5">
@@ -31,11 +31,11 @@ const LandingPage = ({ history }) => {
         </Form.Group>
       </Form>
     </Container>
-  );
-};
+  )
+}
 
 LandingPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-};
+}
 
-export default LandingPage;
+export default LandingPage

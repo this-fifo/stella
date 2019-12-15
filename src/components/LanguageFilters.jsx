@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const LanguageFilters = () => {
-  return <div />;
-};
+  return <div />
+}
 
-export default LanguageFilters;
+export default LanguageFilters

@@ -1,7 +1,7 @@
-import React, { createRef, useEffect } from 'react';
-import ContentLoader from 'react-content-loader';
-import PropTypes from 'prop-types';
-import Typed from 'typed.js';
+import React, { createRef, useEffect } from 'react'
+import ContentLoader from 'react-content-loader'
+import PropTypes from 'prop-types'
+import Typed from 'typed.js'
 
 const LoaderCard = ({ user, loading }) => {
   const message = loading
@@ -10,20 +10,20 @@ const LoaderCard = ({ user, loading }) => {
         'Oh, no!',
         `Seems like ${user} haven't starred any repos yet ...`,
         'Maybe try another user? (╥﹏╥)',
-      ];
+      ]
 
   const options = {
     strings: message,
     typeSpeed: 20,
     backSpeed: 15,
-  };
+  }
 
-  const ref = createRef();
+  const ref = createRef()
 
   useEffect(() => {
-    const typed = new Typed(ref.current, options);
-    return () => typed.destroy();
-  }, [ref, options]);
+    const typed = new Typed(ref.current, options)
+    return () => typed.destroy()
+  }, [ref, options])
 
   return (
     <>
@@ -61,12 +61,12 @@ const LoaderCard = ({ user, loading }) => {
         <rect x="667" y="474" rx="0" ry="0" width="140" height="15" />
       </ContentLoader>
     </>
-  );
-};
+  )
+}
 
 LoaderCard.propTypes = {
   user: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
-};
+}
 
-export default LoaderCard;
+export default LoaderCard

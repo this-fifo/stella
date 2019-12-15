@@ -1,12 +1,12 @@
-import React, { createRef } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './components/Header';
-import LanguageFilters from './components/LanguageFilters';
-import RepoGallery from './components/RepoGallery';
-import LandingPage from './components/LandingPage';
+import React, { createRef } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Header from './components/Header'
+import LanguageFilters from './components/LanguageFilters'
+import RepoGallery from './components/RepoGallery'
+import LandingPage from './components/LandingPage'
 
 const App = () => {
-  const ref = createRef();
+  const ref = createRef()
 
   return (
     <Router>
@@ -18,7 +18,7 @@ const App = () => {
       </Switch>
       <div ref={ref} id="dark-mode-blender" />
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App
