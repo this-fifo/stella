@@ -1,15 +1,20 @@
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import toggle from '../toggle.svg'
 import starCoin from '../star_coin.png'
 
-const Header = ({ darkModeBlenderRef }) => {
+const Header = ({ darkModeBlenderRef, history }) => {
   const [searchValue, setSearchValue] = useState('')
 
   const handleClick = () => {
     darkModeBlenderRef.current.classList.toggle('expand')
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    setSearchValue('')
   }
 
   const handleChange = input => {
@@ -17,35 +22,42 @@ const Header = ({ darkModeBlenderRef }) => {
   }
 
   return (
-    <Navbar bg="white" variant="light" position="top">
+    <Navbar bg="white" variant="light" position="top" className="d-flex">
       <Navbar.Brand>
-        <Link to="/">
-          <img alt="stella" src={starCoin} width="5%" className="mr-2" />
-          Stella
+        <Link variant="dark" to="/">
+          <img alt="stella" src={starCoin} style={{ maxWidth: '2.5rem' }} />
         </Link>
       </Navbar.Brand>
-      <Nav className="mr-auto">
-        <Form inline>
-          <FormControl
-            value={searchValue}
-            onChange={handleChange}
-            type="text"
-            placeholder="Search"
-            className="mr-sm-2"
-          />
-        </Form>
+      <Nav className="mx-auto">
+        {history.location.pathname !== '/' ? (
+          <Form inline onSubmit={handleSubmit}>
+            <FormControl
+              value={searchValue}
+              onChange={handleChange}
+              type="text"
+              placeholder="Search"
+            />
+          </Form>
+        ) : (
+          <></>
+        )}
       </Nav>
       <Nav.Item>
         <Button onClick={handleClick} id="toggle" size="sm" variant="link">
-          <img alt="dark mode" src={toggle} width="25%" />
+          <img alt="dark mode" src={toggle} style={{ maxWidth: '2.2rem' }} />
         </Button>
       </Nav.Item>
     </Navbar>
   )
 }
 
+const historyPropType = PropTypes.shape({
+  location: PropTypes.shape({ pathname: PropTypes.string }),
+})
+
 Header.propTypes = {
   darkModeBlenderRef: PropTypes.objectOf(PropTypes.instanceOf(Element)).isRequired,
+  history: historyPropType.isRequired,
 }
 
-export default Header
+export default withRouter(Header)

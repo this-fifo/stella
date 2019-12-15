@@ -8,8 +8,10 @@ describe('Header', () => {
   })
 
   it('contains dark mode toggle', () => {
-    const wrapper = shallow(<Header darkModeBlenderRef={{}} />)
-    const darkModeToggle = <img alt="dark mode" src="toggle.svg" width="25%" />
+    const wrapper = shallow(
+      <Header.WrappedComponent darkModeBlenderRef={{}} history={{ location: { pathname: '/' } }} />
+    )
+    const darkModeToggle = <img alt="dark mode" src="toggle.svg" style={{ maxWidth: '2.0rem' }} />
     expect(wrapper).toContainReact(darkModeToggle)
   })
 })
