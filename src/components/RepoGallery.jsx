@@ -26,10 +26,10 @@ const RepoGallery = ({ user, pagination, load, error, loading, history }) => {
   if (error) return <ErrorCard />
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-3">
       <CardDeck>{content}</CardDeck>
-      {next.page ? (
-        <Pagination className="mt-5 d-flex justify-content-center">
+      {next.page || prev.page ? (
+        <Pagination className="mt-3 d-flex justify-content-center">
           <Pagination.First onClick={() => load(id, 1)} disabled={current === 1} />
           <Pagination.Prev onClick={() => load(id, prev.page)} disabled={!prev.page} />
           <Pagination.Item active>{current}</Pagination.Item>
