@@ -1,4 +1,5 @@
 import React from 'react'
+import Moment from 'react-moment'
 import { Card, Badge } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import githubIcon from '../github.svg'
@@ -14,7 +15,17 @@ const RepoCard = ({ repo }) => {
     >
       <Card.Body>
         <Card.Title>
-          <u>{repo.name}</u>
+          <Badge
+            className="small float-right"
+            style={{
+              color: repo.language_color,
+              border: `.5px solid ${repo.language_color}`,
+              boxShadow: `1px 1px 0 0 ${repo.language_color}`,
+              borderRadius: '1px',
+            }}
+          >
+            {repo.language}
+          </Badge>
           <span>
             <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
               <img
@@ -25,20 +36,18 @@ const RepoCard = ({ repo }) => {
               />
             </a>
           </span>
-          <Badge
-            className="small"
-            style={{
-              color: repo.language_color,
-              border: `.5px solid ${repo.language_color}`,
-              boxShadow: `1px 1px 0 0 ${repo.language_color}`,
-              borderRadius: '1px',
-            }}
-          >
-            {repo.language}
-          </Badge>
+        </Card.Title>
+        <Card.Title>
+          <u>{repo.name}</u>
         </Card.Title>
         <Card.Text>{repo.description}</Card.Text>
       </Card.Body>
+      <Card.Footer className="text-truncate text-muted small border-top-0">
+        <Moment fromNow ago className="float-right">
+          {repo.updated_at}
+        </Moment>
+        {repo.license ? <span>{repo.license.name}</span> : <span>No License</span>}
+      </Card.Footer>
     </Card>
   )
 }
