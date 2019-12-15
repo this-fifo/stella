@@ -34,7 +34,7 @@
 .custom-card,
 .custom-borders {
   border: 1px solid #212529;
-  border-radius: 2xp;
+  border-radius: 2px;
   -webkit-box-shadow: 5px 5px 0 0 #212529;
   box-shadow: 5px 5px 0 0 #212529;
 }
@@ -44,7 +44,7 @@
 */
 .pagination > li > .page-link {
   background-color: white;
-  color: black;
+  color: #212529;
 }
 
 .pagination > li > .page-link:focus,
