@@ -11,10 +11,11 @@
 */
 .isolate {
   isolation: isolate;
+  z-index: 1;
 }
 .expand {
   transform: scale(100);
-  background: white;
+  background: #f5f5f5e8;
 }
 #dark-mode-blender {
   width: 3rem;

@@ -20,7 +20,7 @@ const RepoCard = ({ repo }) => {
             style={{
               color: repo.language_color,
               border: `.5px solid ${repo.language_color}`,
-              boxShadow: `1px 1px 0 0 ${repo.language_color}`,
+              boxShadow: `2px 2px 0 0 ${repo.language_color}`,
               borderRadius: '1px',
             }}
           >

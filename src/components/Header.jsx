@@ -23,7 +23,7 @@ const Header = ({ darkModeBlenderRef, history }) => {
 
   return (
     <Navbar bg="white" variant="light" position="top" className="d-flex">
-      <Navbar.Brand>
+      <Navbar.Brand className="isolate">
         <Link variant="dark" to="/">
           <img alt="stella" src={starCoin} style={{ maxWidth: '2.5rem' }} />
         </Link>
