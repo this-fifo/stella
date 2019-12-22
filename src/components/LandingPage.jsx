@@ -1,24 +1,35 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react'
+import { Container, Form, Button, CardDeck } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { Container, Form, Button } from 'react-bootstrap'
+import ContentLoader from './ContentLoader'
+import { searchUsers } from '../api/githubApi'
+import UserCard from './UserCard'
 
 const LandingPage = ({ history }) => {
+  const [users, setUsers] = useState({})
   const [userId, setUserId] = useState('')
+  const [loading, setLoading] = useState(false)
+
   const handleChange = input => {
     setUserId(input.target.value)
   }
 
   const handleClick = event => {
     event.preventDefault()
-    history.push(`/${userId}`)
+    setLoading(true)
+    searchUsers(userId).then((results) => {
+      setUsers(results)
+      setLoading(false)
+    })
   }
 
   return (
-    <Container className="mt-5">
+    <Container>
       <h1>Hello!</h1>
       <Form>
         <Form.Group>
-          <Form.Label>Enter a GitHub username below to get started!</Form.Label>
+          <Form.Label>Search for a GitHub username to get started!</Form.Label>
           <Form.Control
             value={userId}
             onChange={handleChange}
@@ -26,10 +37,16 @@ const LandingPage = ({ history }) => {
             placeholder="GitHub Username"
           />
           <Button onClick={handleClick} variant="dark" className="mt-2" type="submit">
-            Go
+            Search
           </Button>
         </Form.Group>
       </Form>
+      <CardDeck>
+        <ContentLoader loading={loading} />
+        {users.items ? (
+          users.items.map(user => <UserCard key={user.login} user={user} history={history} />)
+        ) : <></>}
+      </CardDeck>
     </Container>
   )
 }

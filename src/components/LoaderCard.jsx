@@ -18,11 +18,7 @@ const LoaderCard = ({ user, loading }) => {
     strings: !doneTyping ? message : ['->'],
     typeSpeed: !doneTyping ? 20 : 100,
     backSpeed: 20,
-    onComplete: () => {
-      setTimeout(() => {
-        if (!loading) setDoneTyping(true)
-      }, 1000)
-    },
+    onComplete: () => setTimeout(() => loading || setDoneTyping(true), 1000)
   }
 
   const ref = createRef()
