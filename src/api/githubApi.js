@@ -14,7 +14,7 @@ const getLanguages = async () => {
   return languages
 }
 
-export const API_URL_ENDPOINT = 'https://api.github.com/users'
+const API_URL_ENDPOINT = 'https://api.github.com'
 
 export const getStarredRepos = async (id, page = 1) => {
   const githubUsernameRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
@@ -22,7 +22,7 @@ export const getStarredRepos = async (id, page = 1) => {
     throw new Error('Invalid username')
   }
 
-  const url = `${API_URL_ENDPOINT}/${id}/starred?per_page=15&page=${page}`
+  const url = `${API_URL_ENDPOINT}/users/${id}/starred?per_page=15&page=${page}`
   const response = await fetch(url)
 
   if (!response.ok) {
@@ -54,4 +54,13 @@ export const getStarredRepos = async (id, page = 1) => {
     error: false,
   }
   return data
+}
+
+export const searchUsers = async (query) => {
+  const url = `${API_URL_ENDPOINT}/search/users?q=${query}`
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error('Something went wrong')
+  }
+  return response.json()
 }
