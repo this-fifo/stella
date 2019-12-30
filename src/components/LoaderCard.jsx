@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { createRef, useLayoutEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Typed from 'typed.js'
@@ -23,7 +23,7 @@ const LoaderCard = ({ user, loading }) => {
 
   const ref = createRef()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const typed = new Typed(ref.current, options)
     return () => typed.destroy()
   }, [ref, options, loading])

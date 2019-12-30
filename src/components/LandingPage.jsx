@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react'
 import { Container, Form, Button, CardDeck } from 'react-bootstrap'
 import PropTypes from 'prop-types'
