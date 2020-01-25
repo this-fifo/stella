@@ -15,6 +15,7 @@ const Header = ({ darkModeBlenderRef, history }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
+    history.push(searchValue)
     setSearchValue('')
   }
 
