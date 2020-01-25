@@ -34,7 +34,7 @@ export const getStarredRepos = async (id, page = 1) => {
 
   const repos = json.map(value => {
     const modified = value
-    if (value.language) {
+    if (value.language && Object.prototype.hasOwnProperty.call(languages, value.language)) {
       modified.language_color = languages[value.language].color
       return modified
     }
