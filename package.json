@@ -60,7 +60,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.17.0",
     "jest-enzyme": "^7.1.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "react-test-renderer": "^16.12.0",
